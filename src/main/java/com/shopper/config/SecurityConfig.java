@@ -50,8 +50,8 @@ public class SecurityConfig {
                 .authenticationEntryPoint(unauthorizedEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/account/authenticate",
-                                "/account/register",
+                        .requestMatchers("/api/account/authenticate",
+                                "/api/account/register",
                                 "/ping").permitAll() // Permit Ping without Authentication
                         .anyRequest().authenticated());
 

@@ -4,8 +4,11 @@ package com.shopper.controller;
 import com.shopper.dao.Inventory;
 import com.shopper.dto.InventoryDTO;
 import com.shopper.dto.ProductDTO;
+import com.shopper.dto.request.InventoryRequest;
+import com.shopper.dto.response.InventoryResponse;
 import com.shopper.repository.InventoryRepository;
 import com.shopper.service.InventoryService;
+import com.shopper.utils.ValidationUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,12 +20,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
-@RequestMapping("/product")
+@RequestMapping("/api/product")
 public class InventoryController {
 
 
     private InventoryService inventoryService;
 
+    @Autowired
     public InventoryController( InventoryService inventoryService) {
         this.inventoryService = inventoryService;
     }
@@ -30,9 +34,20 @@ public class InventoryController {
 
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<InventoryDTO> getAllInventory() {
-    return inventoryService.getAllInventory();
+    public List<InventoryResponse> getAllInventory() {
+        return inventoryService.getAllInventory().stream().map(this::adaptToResponse).collect(Collectors.toList());
     }
+
+    private InventoryResponse adaptToResponse(InventoryDTO inventoryDTO) {
+        return InventoryResponse.builder()
+                .productName(inventoryDTO.getProductName())
+                .quantity(inventoryDTO.getQuantity())
+                .productId(inventoryDTO.getProductId())
+                .price(inventoryDTO.getPrice())
+                .build();
+    }
+
+
 
     @GetMapping
     @PreAuthorize("hasRole('USER')")
@@ -41,21 +56,30 @@ public class InventoryController {
     }
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public InventoryDTO createInventory( @RequestBody InventoryDTO inventoryDTO) {
-         return inventoryService.createInventory(inventoryDTO);
+    public InventoryResponse createInventory( @RequestBody InventoryRequest inventoryRequest) {
+
+        log.info("Create Inventory Request {}", inventoryRequest);
+        ValidationUtils.validateInventoryRequestForCreation(inventoryRequest);
+        InventoryDTO inventoryDTO = adaptToDTO(inventoryRequest);
+         return adaptToResponse(inventoryService.createInventory(inventoryDTO));
     }
 
-
-    @PutMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public InventoryDTO updateInventory(@RequestBody InventoryDTO inventoryDTO) {
-        return inventoryService.updateInventory(inventoryDTO);
+    public InventoryDTO adaptToDTO(InventoryRequest inventoryRequest) {
+        return  InventoryDTO.builder()
+                .price(inventoryRequest.getPrice())
+                .quantity(inventoryRequest.getQuantity())
+                .productId(inventoryRequest.getProductId())
+                .productName(inventoryRequest.getProductName())
+                .build();
     }
 
 
     @PostMapping("/delete")
     @PreAuthorize("hasRole('ADMIN')")
-    public InventoryDTO deleteInventory(@RequestBody InventoryDTO inventoryDTO) {
-        return inventoryService.deleteInventory(inventoryDTO);
+    public InventoryResponse deleteInventory(@RequestBody InventoryRequest inventoryRequest) {
+        log.info("Delete Inventory Request {}", inventoryRequest);
+        ValidationUtils.validateInventoryRequestForDeletion(inventoryRequest);
+        InventoryDTO inventoryDTO = adaptToDTO(inventoryRequest);
+        return adaptToResponse(inventoryService.deleteInventory(inventoryDTO));
     }
 }

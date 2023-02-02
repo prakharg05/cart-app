@@ -1,24 +1,27 @@
 package com.shopper.handler;
 
 import com.shopper.dto.response.ApiError;
-import com.shopper.exceptions.CartItemNotFoundException;
-import com.shopper.exceptions.InvalidInputException;
-import com.shopper.exceptions.InvalidProductException;
-import com.shopper.exceptions.NotEnoughInventoryException;
+import com.shopper.exceptions.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import static com.shopper.config.Config.ErrorCode.*;
+
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidProductException.class)
     public ResponseEntity<ApiError> handleInvalidProductException(InvalidProductException e, WebRequest request) {
         ApiError apiError = ApiError.builder()
                 .errorMessage(String.format("Invalid product id %s ", e.getProductId()))
-                .errorCode(4001)
+                .errorCode(ERROR_INVALID_PRODUCT_ID)
                 .build();
+        log.error("Controller encountered an Error", e);
+
         return ResponseEntity.badRequest().body(apiError);
 
     }
@@ -27,8 +30,10 @@ public class GlobalExceptionHandler {
         ApiError apiError = ApiError.builder()
                 .errorMessage(String.format("Requested quantity = %s, maximum quantity  = %s ",
                                 e.getRequestedQuantity(), e.getMaximumQuantity()))
-                .errorCode(4001)
+                .errorCode(ERROR_NOT_ENOUGH_INVENTORY)
                 .build();
+        log.error("Controller encountered an Error", e);
+
         return ResponseEntity.badRequest().body(apiError);
     }
 
@@ -36,8 +41,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> handleCartItemNotFoundException(CartItemNotFoundException e, WebRequest request) {
         ApiError apiError = ApiError.builder()
                 .errorMessage(String.format("Product ID = %s requested for deletion is absent from cart", e.getProductId()))
-                .errorCode(4001)
+                .errorCode(ERROR_CART_ITEM_MISSING)
                 .build();
+        log.error("Controller encountered an Error", e);
         return ResponseEntity.badRequest().body(apiError);
     }
 
@@ -45,8 +51,21 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> handleInvalidInputException(InvalidInputException e, WebRequest request) {
         ApiError apiError = ApiError.builder()
                 .errorMessage(e.getMessage())
-                .errorCode(4001)
+                .errorCode(ERROR_INVALID_INPUT)
                 .build();
+        log.error("Controller encountered an Error", e);
+
+        return ResponseEntity.badRequest().body(apiError);
+    }
+
+    @ExceptionHandler(RequestValidationException.class)
+    public ResponseEntity<ApiError> handleValidationFailure(RequestValidationException e, WebRequest request) {
+        ApiError apiError = ApiError.builder()
+                .errorMessage(e.getMessage())
+                .errorCode(ERROR_INVALID_INPUT)
+                .build();
+        log.error("Controller encountered an Error", e);
+
         return ResponseEntity.badRequest().body(apiError);
     }
 
@@ -54,8 +73,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> handleGenericException(Exception e, WebRequest request) {
         ApiError apiError = ApiError.builder()
                 .errorMessage(String.format("Something went wrong %s", e.getMessage()))
-                .errorCode(4001)
+                .errorCode(ERROR_INTERNAL_SERVER_FAILURE)
                 .build();
+        log.error("Controller encountered an Error", e);
+
         return ResponseEntity.internalServerError().body(apiError);
     }
 

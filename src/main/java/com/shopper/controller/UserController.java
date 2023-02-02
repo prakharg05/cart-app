@@ -27,7 +27,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/api/account")
 public class UserController {
 
 
@@ -38,6 +38,12 @@ public class UserController {
     private AuthenticationManager authenticationManager;
     @Autowired
     protected UserService userService;
+
+    @GetMapping
+    @PreAuthorize("hasRole('USER')")
+    public UserAccount getAccount(Principal user) {
+        return userService.findOne(user.getName());
+    }
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> generateToken(@RequestBody LoginPayload loginRequest) {
@@ -81,10 +87,5 @@ public class UserController {
         return userService.fetchAllUserAccounts();
     }
 
-    @GetMapping
-    @PreAuthorize("hasRole('USER')")
-    public UserAccount getAccount(Principal user) {
-        return userService.findOne(user.getName());
-    }
 
 }

@@ -32,13 +32,8 @@ public class InventoryService {
 
     public InventoryDTO createInventory( InventoryDTO inventoryDTO) {
 
-        productRepository.save(adaptToDAO(inventoryDTO));
-        return inventoryDTO;
-    }
-
-
-    public InventoryDTO updateInventory( InventoryDTO inventoryDTO) {
-        productRepository.save(adaptToDAO(inventoryDTO));
+        Product product = productRepository.save(adaptToDAO(inventoryDTO));
+        inventoryDTO.setProductId(product.getProductId());
         return inventoryDTO;
     }
 
@@ -48,12 +43,11 @@ public class InventoryService {
         return inventoryDTO;
     }
 
-
-
-
     private InventoryDTO adaptToDTO(Product product) {
-        return InventoryDTO.builder().productId(product.getProductId())
+        return InventoryDTO.builder()
+                .productId(product.getProductId())
                 .productName(product.getProductName())
+                .price(product.getProductPrice())
                 .quantity(product.getInventory().getQuantity())
                 .build();
     }
@@ -63,11 +57,9 @@ public class InventoryService {
                 .productPrice(product.getProductPrice())
                 .productName(product.getProductName()).build();
     }
-
-
     private Product adaptToDAO(InventoryDTO inventoryDTO) {
         return Product.builder().productName(inventoryDTO.getProductName()).inventory(Inventory.builder()
-                .quantity(inventoryDTO.getQuantity()).build()).productPrice(12)
+                .quantity(inventoryDTO.getQuantity()).build()).productPrice(inventoryDTO.getPrice())
                 .productId(inventoryDTO.getProductId()).build();
 
     }

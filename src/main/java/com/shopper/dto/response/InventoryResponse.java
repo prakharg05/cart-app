@@ -1,6 +1,6 @@
-package com.shopper.dto;
+package com.shopper.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.extern.jackson.Jacksonized;
 @Data
 @AllArgsConstructor
 @Jacksonized
-public class InventoryDTO {
+public class InventoryResponse {
     private Long productId;
     private String productName;
     private Integer quantity;

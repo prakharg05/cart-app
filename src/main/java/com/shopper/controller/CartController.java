@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
-@RequestMapping("/cart")
+@RequestMapping("/api/cart")
 public class CartController {
 
     @Autowired
@@ -68,7 +68,7 @@ public class CartController {
     @PostMapping("/delete")
     @PreAuthorize("hasRole('USER')")
     public CartResponse deleteItemFromCart(@RequestBody CartItemRequest item, Principal user) {
-        ValidationUtils.validateCartItemRequest(item);
+        ValidationUtils.validateCartItemRequestForDeletion(item);
         CartItemDTO cartItemDTO = CartItemDTO.builder()
                 .productName(item.getProductName())
                 .productId(item.getProductId())

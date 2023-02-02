@@ -95,6 +95,7 @@ public class UserService implements UserDetailsService {
         }
 
         nUser.setRoles(roleSet);
+        nUser.setSuspended(Boolean.FALSE);
         return userRepository.save(nUser);
     }
 
