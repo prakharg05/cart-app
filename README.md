@@ -98,7 +98,12 @@ A  Tomcat Server should spin up and start listening for requests on port `8080` 
 
 ## Running Using Docker
 
-The application can also be run by pulling the docker image available [here](https://drive.google.com/drive/folders/1a1e8q1U6Oz9-2LNg6-XiVdSN4WvZ52Eo?usp=share_link)
+The application can also be run by pulling the docker image available [here](https://hub.docker.com/repository/docker/prkharg/cartapp/general)
+
+or run 
+```agsl
+docker pull prkharg/cartapp:1.0.0
+```
 
 Please download the above docker image, and run
 
