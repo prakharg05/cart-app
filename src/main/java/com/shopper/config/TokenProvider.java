@@ -19,7 +19,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * Token Utility provider class for JWT.
+ * Token Utility provider class for JWT. Provides methods for validating, and extracting user accounts.
  */
 @Component
 public class TokenProvider implements Serializable {

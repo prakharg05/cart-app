@@ -6,6 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
+/**
+ * Repository for CRUD operations on Product Entity
+ */
 public interface ProductRepository extends CrudRepository<Product, Long> {
     List<Product> findAll();
 }

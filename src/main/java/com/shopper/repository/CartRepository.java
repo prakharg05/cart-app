@@ -6,6 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
+/**
+ * Repository for CRUD operations on Cart Entity
+ */
 public interface CartRepository  extends CrudRepository<Cart, Long> {
 
     public Cart findByUsername(String username);

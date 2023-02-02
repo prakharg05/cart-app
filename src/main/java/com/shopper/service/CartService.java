@@ -42,7 +42,9 @@ public class CartService {
     }
 
     public List<CartDTO> getAllCarts() {
-        return cartRepository.findAll().stream().map(this :: adaptToDTO).collect(Collectors.toList());
+        List<CartDTO> cartDTOList =  cartRepository.findAll().stream().map(this :: adaptToDTO).collect(Collectors.toList());
+        log.info("All carts fetched {}", cartDTOList);
+        return  cartDTOList;
     }
 
     private Cart initializeCartForUser(String username) {

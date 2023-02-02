@@ -28,10 +28,10 @@ User Accounts with ``ADMIN`` role are granted, using email domain `@shopper.com`
 
 ## API Endpoints
 Detailed API Documentation listed below
-- [API ERROR CONTRACT](documentation/api_error_contract.md)
-- [INVENTORY API CONTRACT](documentation/product_api_contract.md)
-- [CART CONTRACT](documentation/cart_api_contract.md)
-- [USER ACCOUNT CONTRACT](documentation/user_api_contracts.md)
+- [API Error Contracts](documentation/api_error_contract.md)
+- [Product API Contracts](documentation/product_api_contract.md)
+- [Cart API Contracts](documentation/cart_api_contract.md)
+- [User Account APT Contracts](documentation/user_api_contracts.md)
 
 
 Below table lists all available endpoints with their Authorization criteria.
@@ -74,18 +74,19 @@ The APIs can be tested by running the spring application, by building and execut
 
 Below steps describe how to build the spring project.
 ### Building Spring Project
-To build the Spring Project, execute the following command.
-
 Ensure that all the required dependencies (JDK17, and Maven) are installed.
+
+To build the Spring Project, execute the following command, in the same directory as `pom.xml`
+
 ```agsl
 > mvn clean package
 ```
 
-If the build succeeds,  a `jar` file in `target` directory should be created.
+If the build succeeds,  a `jar` file in `./target` directory should be created.
 
 `Example : cartapp-0.0.1-SNAPSHOT.jar`
 
-If the build succedes, you can proceed to next step, i.e. starting the web server
+If the build has succeeded, you can proceed to next step, i.e. starting the web server
 
 ### Starting the web server
 To start the webserver, execute the jar, by running the following
@@ -96,7 +97,7 @@ To start the webserver, execute the jar, by running the following
 
 A  Tomcat Server should spin up and start listening for requests on port `8080` .
 
-## Test Using Docker
+## Running Using Docker
 
 The application can also be run by pulling the docker image available [here](https://drive.google.com/drive/folders/1a1e8q1U6Oz9-2LNg6-XiVdSN4WvZ52Eo?usp=share_link)
 

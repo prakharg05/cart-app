@@ -36,7 +36,7 @@ public class InventoryController {
 
 
     /**
-     * List all inventory
+     * List all inventory, including inventory quantity
      * @return
      */
     @GetMapping("/all")
@@ -56,7 +56,7 @@ public class InventoryController {
 
 
     /**
-     * List all in stock items
+     * List all in stock items, without inventory quantity
      * @return
      */
     @GetMapping
@@ -66,7 +66,7 @@ public class InventoryController {
     }
 
     /**
-     * Create or update inventory
+     * Create or update inventory, adds product name, price and quantity.
      * @param inventoryRequest
      * @return
      */
@@ -90,6 +90,11 @@ public class InventoryController {
     }
 
 
+    /**
+     * Delete product from exisitng inventory
+     * @param inventoryRequest
+     * @return
+     */
     @PostMapping("/delete")
     @PreAuthorize("hasRole('ADMIN')")
     public InventoryResponse deleteInventory(@RequestBody InventoryRequest inventoryRequest) {
