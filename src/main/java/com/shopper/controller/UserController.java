@@ -25,6 +25,9 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller to route Account related requests
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api/account")

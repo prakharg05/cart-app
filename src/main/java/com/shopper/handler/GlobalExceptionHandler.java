@@ -10,6 +10,10 @@ import org.springframework.web.context.request.WebRequest;
 
 import static com.shopper.config.Config.ErrorCode.*;
 
+
+/**
+ * Global exception handler, to handler all exception from controller, and wrap with appropriate error codes
+ */
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
@@ -61,7 +65,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RequestValidationException.class)
     public ResponseEntity<ApiError> handleValidationFailure(RequestValidationException e, WebRequest request) {
         ApiError apiError = ApiError.builder()
-                .errorMessage(e.getMessage())
+                .errorMessage(e.getErrorMessage())
                 .errorCode(ERROR_INVALID_INPUT)
                 .build();
         log.error("Controller encountered an Error", e);

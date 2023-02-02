@@ -57,6 +57,7 @@ public class UserService implements UserDetailsService {
     }
 
     public UserAccount suspendUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("Suspend user request {}", username);
         UserAccount user = userRepository.findByUsername(username);
         if(user == null){
             throw new UsernameNotFoundException("Invalid username or password.");

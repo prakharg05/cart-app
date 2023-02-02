@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 public class InventoryServiceTest {
 
@@ -41,6 +43,13 @@ public class InventoryServiceTest {
     public void test_getAllAvailableProducts_outOfStock() {
         doReturn(Arrays.asList(TestData.outOfStockProduct)).when(productRepository).findAll();
         Assertions.assertTrue(inventoryService.getAllAvailableProducts().size() == 0);
+    }
+
+    @Test
+    public void test_createInventory_happy() {
+        doReturn(TestData.testProduct).when(productRepository).save(any());
+        inventoryService.createInventory(TestData.inventoryDTO);
+        verify(productRepository, times(1)).save(any());
     }
 
     static class TestData {

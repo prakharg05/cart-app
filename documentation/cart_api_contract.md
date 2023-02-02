@@ -39,6 +39,7 @@ POST /api/cart/delete
 ```
 
 #### Response Schema
+
 ```json
 {
   "username": "prkharg",
@@ -50,12 +51,12 @@ POST /api/cart/delete
       "fulfillable": true
     }
   ]
-}
+} // New Cart After deletion
 ```
 
 
 ### Fetch Cart
-API to add item to a user's cart.
+API to fetch currently logged in user's cart.
 ```agsl
 GET /api/cart
 ```
@@ -78,7 +79,7 @@ GET /api/cart
 
 
 ### Fetch All Carts
-Fetch All carts
+Fetch All carts present in the system.
 ```agsl
 GET /api/cart/all
 ```
@@ -100,3 +101,4 @@ GET /api/cart/all
   }
 ]
 ```
+

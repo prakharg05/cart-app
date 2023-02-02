@@ -42,12 +42,8 @@ public class UserServiceTest {
         doReturn("SOMETHING").when(bcryptEncoder).encode(any());
         doReturn(Role.builder().name("USER").id(12l).build()).when(roleRepository).findRoleByName("USER");
         doReturn(Role.builder().name("ADMIN").id(13l).build()).when(roleRepository).findRoleByName("ADMIN");
-
-
         userService.save(TestData.userDTO);
-
         verify(userRepository, times(1)).save(any());
-
     }
 
 

@@ -29,15 +29,12 @@ public class InventoryRepositoryTest {
 
     }
 
-
     static class TestData {
         public static List<Product> getDummyInventory() {
             Product p1 = Product.builder().productName("BRUSH").productPrice(10)
                     .inventory(Inventory.builder().quantity(10).build()).build();
-
             Product p2 = Product.builder().productName("BRUSH").productPrice(10)
                     .inventory(Inventory.builder().quantity(10).build()).build();
-
             return Arrays.asList(p1, p2);
 
         }

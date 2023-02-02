@@ -42,6 +42,13 @@ public class SecurityConfig {
 
         return authProvider;
     }
+
+    /**
+     * Bean to configure authentication filters for incoming requests.
+     * @param http
+     * @return
+     * @throws Exception
+     */
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and()

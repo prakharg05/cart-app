@@ -18,6 +18,9 @@ import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controller to route Inventory related requests
+ */
 @RestController
 @Slf4j
 @RequestMapping("/api/product")
@@ -32,6 +35,10 @@ public class InventoryController {
     }
 
 
+    /**
+     * List all inventory
+     * @return
+     */
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
     public List<InventoryResponse> getAllInventory() {
@@ -48,12 +55,21 @@ public class InventoryController {
     }
 
 
-
+    /**
+     * List all in stock items
+     * @return
+     */
     @GetMapping
     @PreAuthorize("hasRole('USER')")
     public List<ProductDTO> getAllAvailableProducts() {
         return inventoryService.getAllAvailableProducts();
     }
+
+    /**
+     * Create or update inventory
+     * @param inventoryRequest
+     * @return
+     */
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public InventoryResponse createInventory( @RequestBody InventoryRequest inventoryRequest) {

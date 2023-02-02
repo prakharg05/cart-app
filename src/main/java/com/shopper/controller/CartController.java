@@ -20,6 +20,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controller to route Cart related requests
+ */
 @RestController
 @Slf4j
 @RequestMapping("/api/cart")
@@ -50,6 +53,7 @@ public class CartController {
     @PostMapping
     @PreAuthorize("hasRole('USER')")
     public CartResponse addItemToCart(@RequestBody CartItemRequest item, Principal user) {
+        log.info("Add Cart Item Request {}", item);
         ValidationUtils.validateCartItemRequest(item);
         CartItemDTO cartItemDTO = CartItemDTO.builder()
                 .productName(item.getProductName())
@@ -68,6 +72,7 @@ public class CartController {
     @PostMapping("/delete")
     @PreAuthorize("hasRole('USER')")
     public CartResponse deleteItemFromCart(@RequestBody CartItemRequest item, Principal user) {
+        log.info("Delete Cart Item Request {}", item);
         ValidationUtils.validateCartItemRequestForDeletion(item);
         CartItemDTO cartItemDTO = CartItemDTO.builder()
                 .productName(item.getProductName())

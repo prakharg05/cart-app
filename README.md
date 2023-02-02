@@ -23,10 +23,17 @@ User Accounts can be registered with a role of `USER` using domains such as `@gm
 
 User Accounts with ``ADMIN`` role are granted, using email domain `@shopper.com`
 
-## Data Store
+## Database
 `The Application uses H2 Embedded relation in-memory database.`
 
 ## API Endpoints
+Detailed API Documentation listed below
+- [API ERROR CONTRACT](documentation/api_error_contract.md)
+- [INVENTORY API CONTRACT](documentation/product_api_contract.md)
+- [CART CONTRACT](documentation/cart_api_contract.md)
+- [USER ACCOUNT CONTRACT](documentation/user_api_contracts.md)
+
+
 Below table lists all available endpoints with their Authorization criteria.
 
 | HTTP Verb | Endpoints                   | Authority | Action                                                           |
@@ -89,4 +96,12 @@ To start the webserver, execute the jar, by running the following
 
 A  Tomcat Server should spin up and start listening for requests on port `8080` .
 
-All APIs can be tested using any tool which enable
+## Test Using Docker
+
+The application can also be run by pulling the docker image available [here](https://drive.google.com/drive/folders/1a1e8q1U6Oz9-2LNg6-XiVdSN4WvZ52Eo?usp=share_link)
+
+Please download the above docker image, and run
+
+`
+docker run -p 8080:8080 cartapp
+`
