@@ -31,7 +31,7 @@ Detailed API Documentation listed below
 - [API Error Contracts](documentation/api_error_contract.md)
 - [Product API Contracts](documentation/product_api_contract.md)
 - [Cart API Contracts](documentation/cart_api_contract.md)
-- [User Account APT Contracts](documentation/user_api_contracts.md)
+- [User Account API Contracts](documentation/user_api_contracts.md)
 
 
 Below table lists all available endpoints with their Authorization criteria.
@@ -46,7 +46,6 @@ Below table lists all available endpoints with their Authorization criteria.
 | GET       | `/api/account/all`          | `ADMIN`   | Fetch all registered user accounts.                              |
 | GET       | `/api/product`              | `USER`    | Fetch all available Products                                     |
 | POST      | `/api/product`              | `ADMIN`   | To create new Inventory                                          |
-| PUT       | `/api/product`              | `ADMIN`   | To update existing Inventory                                     |
 | POST      | `/api/product/delete`       | `ADMIN`   | Fetch all created Inventory.                                     |
 | GET       | `/api/product/all`          | `ADMIN`   | Fetch all created Inventory.                                     |
 | GET       | `/api/cart   `              | `USER`    | Fetch cart of the logged in user.                                |
