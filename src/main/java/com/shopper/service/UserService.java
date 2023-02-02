@@ -5,6 +5,7 @@ import com.shopper.dao.Role;
 import com.shopper.dao.UserAccount;
 import com.shopper.dto.UserDTO;
 import com.shopper.exceptions.InvalidInputException;
+import com.shopper.exceptions.UsernameTakenException;
 import com.shopper.repository.RoleRepository;
 import com.shopper.repository.UserRepository;
 import com.shopper.utils.ValidationUtils;
@@ -81,6 +82,9 @@ public class UserService implements UserDetailsService {
 
     public UserAccount save(UserDTO user) {
         UserAccount nUser = adaptToDao(user);
+        if(userRepository.existsByUsername(nUser.getUsername())) {
+            throw new UsernameTakenException();
+        }
         nUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 
         Role role = roleRepository.findRoleByName(USER_ROLE);

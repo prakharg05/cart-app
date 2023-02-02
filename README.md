@@ -24,7 +24,7 @@ User Accounts can be registered with a role of `USER` using domains such as `@gm
 User Accounts with ``ADMIN`` role are granted, using email domain `@shopper.com`
 
 ## Database
-`The Application uses H2 Embedded relation in-memory database.`
+`The Application uses an In-Memory embedded relation in-memory database know as H2`
 
 ## API Endpoints
 Detailed API Documentation listed below

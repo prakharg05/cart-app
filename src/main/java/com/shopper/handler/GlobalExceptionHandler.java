@@ -73,6 +73,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(apiError);
     }
 
+    @ExceptionHandler(UsernameTakenException.class)
+    public ResponseEntity<ApiError> handleUsernameTaken(UsernameTakenException e, WebRequest request) {
+        ApiError apiError = ApiError.builder()
+                .errorMessage("User name already taken")
+                .errorCode(ERROR_INVALID_INPUT)
+                .build();
+        log.error("Controller encountered an Error", e);
+
+        return ResponseEntity.badRequest().body(apiError);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleGenericException(Exception e, WebRequest request) {
         ApiError apiError = ApiError.builder()
